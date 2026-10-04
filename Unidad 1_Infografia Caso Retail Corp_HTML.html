@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inteligencia de Negocios · RetailCorp</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:   #0D2B4E;
+    --cobalt: #1A5CA8;
+    --sky:    #3A9BD5;
+    --ice:    #D6EDF9;
+    --mint:   #00B89C;
+    --amber:  #F0A500;
+    --coral:  #E05C4B;
+    --white:  #FFFFFF;
+    --offwhite: #F5F8FC;
+    --mid:    #6B7E96;
+    --text:   #1C2B3A;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--offwhite);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ────────────────────────────── */
+  header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 56px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, var(--cobalt) 0%, transparent 70%);
+    opacity: .5;
+  }
+  header::after {
+    content: '';
+    position: absolute; bottom: -40px; left: 30%;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, var(--sky) 0%, transparent 70%);
+    opacity: .3;
+  }
+  .header-inner { max-width: 960px; margin: 0 auto; position: relative; z-index: 1; }
+  .eyebrow {
+    font-size: .72rem; font-weight: 600; letter-spacing: .12em;
+    color: var(--sky); text-transform: uppercase; margin-bottom: 12px;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900; line-height: 1.15;
+    max-width: 680px;
+  }
+  header h1 span { color: var(--sky); }
+  .subtitle {
+    margin-top: 16px;
+    font-size: .92rem; color: rgba(255,255,255,.72);
+    max-width: 560px;
+  }
+  .badge-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
+  .badge {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 20px; padding: 5px 14px;
+    font-size: .75rem; color: var(--ice);
+  }
+
+  /* ── LAYOUT ─────────────────────────────── */
+  main { max-width: 960px; margin: 0 auto; padding: 40px 24px 60px; }
+
+  section { margin-bottom: 52px; }
+  section > h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem; font-weight: 700;
+    color: var(--navy); margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--ice);
+  }
+  .section-label {
+    display: inline-block;
+    background: var(--cobalt); color: var(--white);
+    font-size: .65rem; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; padding: 3px 10px;
+    border-radius: 3px; margin-bottom: 8px;
+  }
+
+  /* ── INTRO CARD ─────────────────────────── */
+  .intro-card {
+    background: linear-gradient(135deg, var(--cobalt), var(--sky));
+    border-radius: 14px; padding: 32px 36px;
+    color: var(--white); display: flex; gap: 28px; align-items: flex-start;
+  }
+  .intro-icon { font-size: 2.6rem; flex-shrink: 0; }
+  .intro-card p { font-size: .92rem; line-height: 1.7; opacity: .93; }
+  .intro-card strong { color: var(--ice); }
+
+  /* ── PROBLEMA CHIPS ─────────────────────── */
+  .problem-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .problem-chip {
+    background: var(--white);
+    border-left: 4px solid var(--coral);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 14px;
+    font-size: .82rem; color: var(--text);
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  }
+  .problem-chip strong { display: block; color: var(--coral); margin-bottom: 3px; font-size: .78rem; }
+
+  /* ── PREGUNTAS ──────────────────────────── */
+  .question-block {
+    background: var(--white);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 3px 14px rgba(0,0,0,.07);
+    margin-bottom: 28px;
+  }
+  .question-header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 18px 28px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .q-num {
+    background: var(--sky);
+    color: var(--white);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 900;
+    width: 44px; height: 44px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .question-header p { font-size: .88rem; line-height: 1.4; color: var(--ice); }
+  .question-body { padding: 24px 28px; }
+
+  /* ── BENEFIT CARDS ──────────────────────── */
+  .benefit-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 14px;
+  }
+  .benefit-card {
+    border-radius: 10px; padding: 18px 16px;
+    position: relative; overflow: hidden;
+  }
+  .benefit-card.op  { background: #EBF5FB; border-top: 3px solid var(--sky); }
+  .benefit-card.str { background: #E8F8F2; border-top: 3px solid var(--mint); }
+  .benefit-card .bc-icon { font-size: 1.6rem; margin-bottom: 8px; }
+  .benefit-card h3 { font-size: .84rem; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+  .benefit-card p  { font-size: .78rem; color: var(--mid); line-height: 1.5; }
+  .bc-tag {
+    font-size: .62rem; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; padding: 2px 7px; border-radius: 10px;
+    display: inline-block; margin-bottom: 8px;
+  }
+  .op  .bc-tag { background: rgba(58,155,213,.15); color: var(--cobalt); }
+  .str .bc-tag { background: rgba(0,184,156,.15); color: var(--mint); }
+
+  /* ── ETH TABLE ──────────────────────────── */
+  .eth-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+  .eth-table thead th {
+    font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--mid); padding: 0 14px 4px;
+  }
+  .eth-table thead th:first-child { text-align: left; }
+  .eth-table tbody tr { background: var(--white); }
+  .eth-table tbody td {
+    padding: 14px; font-size: .82rem; color: var(--text);
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  }
+  .eth-table tbody td:first-child { border-radius: 8px 0 0 8px; font-weight: 600; color: var(--navy); }
+  .eth-table tbody td:last-child  { border-radius: 0 8px 8px 0; }
+  .risk-dot {
+    display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px;
+  }
+  .risk-h { background: var(--coral); }
+  .risk-m { background: var(--amber); }
+
+  /* ── ANALYTICS CASES ────────────────────── */
+  .analytics-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  @media (max-width: 580px) { .analytics-grid { grid-template-columns: 1fr; } }
+  .analytic-card {
+    background: var(--white); border-radius: 12px;
+    padding: 20px; box-shadow: 0 3px 12px rgba(0,0,0,.06);
+  }
+  .analytic-card .ac-head {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+  }
+  .ac-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .ac-icon.inv { background: #FEF3E2; }
+  .ac-icon.seg { background: #E8F8F2; }
+  .ac-icon.frd { background: #FDE8E8; }
+  .ac-icon.mkt { background: #EBF5FB; }
+  .analytic-card h3 { font-size: .88rem; font-weight: 700; color: var(--navy); }
+  .analytic-card p  { font-size: .78rem; color: var(--mid); line-height: 1.5; }
+  .tech-pill {
+    display: inline-block; margin-top: 10px; margin-right: 6px;
+    background: var(--ice); color: var(--cobalt);
+    font-size: .67rem; font-weight: 600; padding: 3px 9px; border-radius: 10px;
+  }
+
+  /* ── CONCLUSIÓN ─────────────────────────── */
+  .conclusion {
+    background: var(--navy); border-radius: 14px; padding: 32px 36px; color: var(--white);
+  }
+  .conclusion h2 {
+    font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--ice);
+    margin-bottom: 16px; border: none; padding: 0;
+  }
+  .conclusion-points { display: flex; flex-direction: column; gap: 12px; }
+  .conc-point {
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: .84rem; color: rgba(255,255,255,.85); line-height: 1.6;
+  }
+  .conc-bullet {
+    background: var(--sky); color: var(--white);
+    font-size: .7rem; font-weight: 700;
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+  }
+
+  /* ── REFERENCES ─────────────────────────── */
+  .ref-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .ref-list li {
+    font-size: .75rem; color: var(--mid); padding-left: 16px; position: relative; line-height: 1.5;
+  }
+  .ref-list li::before {
+    content: '—'; position: absolute; left: 0; color: var(--sky);
+  }
+
+  /* ── PIPELINE VISUAL ────────────────────── */
+  .pipeline { display: flex; align-items: stretch; gap: 0; flex-wrap: wrap; margin: 20px 0; }
+  .pipe-step {
+    flex: 1; min-width: 110px;
+    background: var(--white); padding: 14px 12px;
+    text-align: center; font-size: .75rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    position: relative;
+  }
+  .pipe-step:first-child { border-radius: 8px 0 0 8px; }
+  .pipe-step:last-child  { border-radius: 0 8px 8px 0; }
+  .pipe-step + .pipe-step::before {
+    content: '▶';
+    position: absolute; left: -10px; top: 50%; transform: translateY(-50%);
+    color: var(--sky); font-size: .7rem; z-index: 2;
+  }
+  .pipe-icon { font-size: 1.4rem; display: block; margin-bottom: 6px; }
+  .pipe-label { font-weight: 700; color: var(--navy); display: block; margin-bottom: 2px; }
+  .pipe-sub   { color: var(--mid); font-size: .68rem; }
+
+  /* ── FOOTER ─────────────────────────────── */
+  footer {
+    background: var(--navy); color: rgba(255,255,255,.45);
+    text-align: center; font-size: .72rem; padding: 20px;
+  }
+
+  @media (max-width: 600px) {
+    header { padding: 40px 20px 32px; }
+    .intro-card { flex-direction: column; }
+    .question-body { padding: 18px 16px; }
+    .eth-table { font-size: .74rem; }
+    .analytics-grid { grid-template-columns: 1fr; }
+    .conclusion { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══════════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+    <div class="eyebrow">Unidad 1 · Inteligencia de Negocios · Universidad Católica de Colombia</div>
+    <h1>BI para la Toma<br>de Decisiones en <span>RetailCorp</span></h1>
+    <p class="subtitle">Conceptos, principios y componentes de la Inteligencia de Negocios aplicados a un caso de minorista internacional.</p>
+    <div class="badge-row">
+      <span class="badge">Beneficios Operacionales y Estratégicos</span>
+      <span class="badge">Ética en BI</span>
+      <span class="badge">Analítica Predictiva</span>
+      <span class="badge">Minería de Datos</span>
+    </div>
+  </div>
+</header>
+
+<!-- ══ MAIN ════════════════════════════════════════ -->
+<main>
+
+  <!-- INTRODUCCIÓN -->
+  <section>
+    <span class="section-label">Introducción</span>
+    <h2>¿Qué es la Inteligencia de Negocios?</h2>
+    <div class="intro-card">
+      <div class="intro-icon">📊</div>
+      <div>
+        <p>La <strong>Inteligencia de Negocios (BI)</strong> es el conjunto de tecnologías, procesos y herramientas que transforman grandes volúmenes de datos en información significativa y útil para la toma de decisiones estratégicas (Sharda, Delen &amp; Turban, 2020). Abarca desde la recopilación y almacenamiento de datos (ETL, data warehousing) hasta la presentación mediante dashboards, análisis predictivo y minería de datos.</p>
+        <br>
+        <p><strong>RetailCorp</strong>, minorista internacional con presencia en múltiples países, enfrenta datos dispersos, baja calidad informacional, excesos de inventario y escasa personalización. La adopción de BI es la palanca para superar estos desafíos y pasar de decisiones basadas en intuición a decisiones basadas en evidencia.</p>
+      </div>
+    </div>
+
+    <!-- Problemas identificados -->
+    <br>
+    <p style="font-size:.82rem;color:var(--mid);margin-bottom:12px;font-weight:600;">Problemas identificados en RetailCorp:</p>
+    <div class="problem-grid">
+      <div class="problem-chip"><strong>Datos Dispersos</strong>Sistemas no integrados impiden análisis global.</div>
+      <div class="problem-chip"><strong>Baja Calidad</strong>Inconsistencia de datos afecta la fiabilidad.</div>
+      <div class="problem-chip"><strong>Decisión Intuitiva</strong>Sin soporte analítico objetivo.</div>
+      <div class="problem-chip"><strong>Gestión de Stock</strong>Excesos y faltantes generan pérdidas.</div>
+      <div class="problem-chip"><strong>Sin Personalización</strong>Incapacidad de segmentar ofertas por cliente.</div>
+    </div>
+  </section>
+
+  <!-- ── PREGUNTA 1 ── -->
+  <section>
+    <span class="section-label">Pregunta 1.1</span>
+    <div class="question-block">
+      <div class="question-header">
+        <div class="q-num">1</div>
+        <p>¿Cuáles son los principales <strong>beneficios</strong> que RetailCorp puede obtener al implementar un sistema de BI? Considera beneficios operacionales y estratégicos.</p>
+      </div>
+      <div class="question-body">
+
+        <!-- Pipeline -->
+        <p style="font-size:.78rem;color:var(--mid);margin-bottom:12px;">Flujo de valor del sistema BI en RetailCorp:</p>
+        <div class="pipeline">
+          <div class="pipe-step">
+            <span class="pipe-icon">🗄️</span>
+            <span class="pipe-label">Fuentes</span>
+            <span class="pipe-sub">Ventas, inventario, clientes, marketing</span>
+          </div>
+          <div class="pipe-step">
+            <span class="pipe-icon">⚙️</span>
+            <span class="pipe-label">ETL</span>
+            <span class="pipe-sub">Extracción, transformación y carga</span>
+          </div>
+          <div class="pipe-step">
+            <span class="pipe-icon">🏛️</span>
+            <span class="pipe-label">Data Warehouse</span>
+            <span class="pipe-sub">Repositorio centralizado</span>
+          </div>
+          <div class="pipe-step">
+            <span class="pipe-icon">📈</span>
+            <span class="pipe-label">Analítica</span>
+            <span class="pipe-sub">Dashboards + modelos</span>
+          </div>
+          <div class="pipe-step">
+            <span class="pipe-icon">🎯</span>
+            <span class="pipe-label">Decisión</span>
+            <span class="pipe-sub">Basada en datos</span>
+          </div>
+        </div>
+
+        <br>
+        <div class="benefit-grid">
+          <!-- Operacionales -->
+          <div class="benefit-card op">
+            <div class="bc-tag">Operacional</div>
+            <div class="bc-icon">🔗</div>
+            <h3>Integración de datos</h3>
+            <p>Consolida fuentes dispersas en un único repositorio, eliminando silos y garantizando análisis coherente entre tiendas y canales en línea.</p>
+          </div>
+          <div class="benefit-card op">
+            <div class="bc-tag">Operacional</div>
+            <div class="bc-icon">📦</div>
+            <h3>Gestión de inventario</h3>
+            <p>Alertas de reabastecimiento y detección de excesos en tiempo real reducen pérdidas y mejoran la disponibilidad de producto.</p>
+          </div>
+          <div class="benefit-card op">
+            <div class="bc-tag">Operacional</div>
+            <div class="bc-icon">⚡</div>
+            <h3>Eficiencia operacional</h3>
+            <p>Automatización de informes y análisis de procesos identifica cuellos de botella y optimiza recursos (Chen, Chiang &amp; Storey, 2012).</p>
+          </div>
+          <div class="benefit-card op">
+            <div class="bc-tag">Operacional</div>
+            <div class="bc-icon">✅</div>
+            <h3>Calidad de datos</h3>
+            <p>Las capas ETL aplican reglas de limpieza y validación, elevando la fiabilidad de la información para todos los equipos.</p>
+          </div>
+          <!-- Estratégicos -->
+          <div class="benefit-card str">
+            <div class="bc-tag">Estratégico</div>
+            <div class="bc-icon">🎯</div>
+            <h3>Decisiones basadas en datos</h3>
+            <p>Dashboards ejecutivos reemplazan la intuición por evidencia, favoreciendo la fijación de objetivos estratégicos (Sharda et al., 2020).</p>
+          </div>
+          <div class="benefit-card str">
+            <div class="bc-tag">Estratégico</div>
+            <div class="bc-icon">👤</div>
+            <h3>Personalización al cliente</h3>
+            <p>Segmentación avanzada permite campañas y ofertas diferenciadas, incrementando la satisfacción y la tasa de retención.</p>
+          </div>
+          <div class="benefit-card str">
+            <div class="bc-tag">Estratégico</div>
+            <div class="bc-icon">🔮</div>
+            <h3>Análisis predictivo</h3>
+            <p>Modelos de demanda anticipan tendencias de mercado y permiten estrategias proactivas (Davenport &amp; Ronanki, 2018).</p>
+          </div>
+          <div class="benefit-card str">
+            <div class="bc-tag">Estratégico</div>
+            <div class="bc-icon">🏆</div>
+            <h3>Ventaja competitiva</h3>
+            <p>La cultura analítica diferencia a RetailCorp al ofrecer experiencias personalizadas que competidores sin BI no pueden igualar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PREGUNTA 2 ── -->
+  <section>
+    <span class="section-label">Pregunta 1.2</span>
+    <div class="question-block">
+      <div class="question-header">
+        <div class="q-num">2</div>
+        <p>¿Cuáles serían las <strong>consideraciones éticas</strong> que RetailCorp debe tener en cuenta al utilizar BI?</p>
+      </div>
+      <div class="question-body">
+        <table class="eth-table">
+          <thead>
+            <tr>
+              <th>Consideración ética</th>
+              <th>Riesgo</th>
+              <th>Acción recomendada para RetailCorp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="risk-dot risk-h"></span>Privacidad de datos</td>
+              <td>Alto</td>
+              <td>Anonimizar datos de clientes de programas de lealtad; obtener consentimiento explícito conforme a la Ley 1581 de Colombia y GDPR.</td>
+            </tr>
+            <tr>
+              <td><span class="risk-dot risk-h"></span>Transparencia y explicabilidad</td>
+              <td>Alto</td>
+              <td>Documentar los modelos predictivos; garantizar que los gerentes comprendan cómo se generan las recomendaciones antes de actuar.</td>
+            </tr>
+            <tr>
+              <td><span class="risk-dot risk-m"></span>Bias y equidad</td>
+              <td>Medio</td>
+              <td>Auditar periódicamente modelos de segmentación para evitar discriminación en precios o disponibilidad de productos por región o demografía.</td>
+            </tr>
+            <tr>
+              <td><span class="risk-dot risk-m"></span>Responsabilidad y rendición de cuentas</td>
+              <td>Medio</td>
+              <td>Definir un comité de gobernanza de datos que asuma responsabilidad sobre decisiones automatizadas con impacto en clientes o empleados.</td>
+            </tr>
+            <tr>
+              <td><span class="risk-dot risk-m"></span>Cumplimiento legal</td>
+              <td>Medio</td>
+              <td>Revisar regulaciones de cada país donde opera RetailCorp sobre recopilación, almacenamiento y transferencia internacional de datos.</td>
+            </tr>
+            <tr>
+              <td><span class="risk-dot" style="background:var(--sky)"></span>Recursos y competencias</td>
+              <td>Bajo</td>
+              <td>Formar al personal en cultura analítica y uso ético del dato, no solo en herramientas técnicas (Curto, 2016).</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:.73rem;color:var(--mid);margin-top:10px;">Fuente: Sengupta, Baiyere &amp; Baskerville (2019); Curto (2016).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PREGUNTA 3 ── -->
+  <section>
+    <span class="section-label">Pregunta 1.3</span>
+    <div class="question-block">
+      <div class="question-header">
+        <div class="q-num">3</div>
+        <p>¿Qué elementos debe considerar RetailCorp para usar <strong>analítica predictiva y minería de datos</strong> en personalización de ofertas y gestión de inventarios?</p>
+      </div>
+      <div class="question-body">
+        <div class="analytics-grid">
+
+          <div class="analytic-card">
+            <div class="ac-head">
+              <div class="ac-icon inv">📦</div>
+              <h3>Gestión predictiva de inventario</h3>
+            </div>
+            <p>Modelos de series de tiempo (ARIMA, Prophet) analizan ventas históricas y estacionalidad por tienda y región. <strong>Ejemplo:</strong> RetailCorp predice la demanda de ropa de invierno con 8 semanas de anticipación, evitando exceso de stock en zonas cálidas.</p>
+            <span class="tech-pill">Series de tiempo</span>
+            <span class="tech-pill">ARIMA / Prophet</span>
+            <span class="tech-pill">Alertas en tiempo real</span>
+          </div>
+
+          <div class="analytic-card">
+            <div class="ac-head">
+              <div class="ac-icon seg">👥</div>
+              <h3>Segmentación y personalización</h3>
+            </div>
+            <p>Algoritmos de clustering (K-Means) agrupan clientes por comportamiento de compra. <strong>Ejemplo:</strong> Clientes de alto valor reciben cupones personalizados de electrónica; clientes frecuentes de alimentos, descuentos en marcas favoritas.</p>
+            <span class="tech-pill">K-Means clustering</span>
+            <span class="tech-pill">Filtrado colaborativo</span>
+            <span class="tech-pill">CRM analytics</span>
+          </div>
+
+          <div class="analytic-card">
+            <div class="ac-head">
+              <div class="ac-icon mkt">📣</div>
+              <h3>Optimización de campañas de marketing</h3>
+            </div>
+            <p>Minería de reglas de asociación (Algoritmo Apriori) identifica productos que se compran juntos. <strong>Ejemplo:</strong> Al detectar que Pan → Mantequilla (confianza 75%), se crean promociones combo y se reorganizan estantes por región.</p>
+            <span class="tech-pill">Reglas de asociación</span>
+            <span class="tech-pill">Apriori</span>
+            <span class="tech-pill">A/B Testing</span>
+          </div>
+
+          <div class="analytic-card">
+            <div class="ac-head">
+              <div class="ac-icon frd">🛡️</div>
+              <h3>Detección de anomalías y fraude</h3>
+            </div>
+            <p>Modelos de detección de outliers identifican transacciones atípicas en ventas online. <strong>Ejemplo:</strong> Picos inusuales de devoluciones en una tienda activan revisión automática, reduciendo pérdidas operativas.</p>
+            <span class="tech-pill">Isolation Forest</span>
+            <span class="tech-pill">Análisis estadístico</span>
+            <span class="tech-pill">Minería de datos</span>
+          </div>
+
+        </div>
+
+        <br>
+        <p style="font-size:.8rem;color:var(--mid);line-height:1.6;">
+          <strong style="color:var(--navy);">Elementos clave del proceso:</strong> (1) Recolección y limpieza de datos transaccionales; (2) preprocesamiento ETL; (3) selección del algoritmo adecuado al objetivo; (4) entrenamiento y evaluación con métricas (precisión, recall, F1-score); (5) despliegue con monitoreo continuo y actualización periódica del modelo (Sharda et al., 2020).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCLUSIÓN -->
+  <section>
+    <span class="section-label">Conclusión</span>
+    <div class="conclusion">
+      <h2>La BI como ventaja competitiva sostenible para RetailCorp</h2>
+      <div class="conclusion-points">
+        <div class="conc-point">
+          <div class="conc-bullet">1</div>
+          <span>La implementación de BI en RetailCorp transforma su operación al centralizar datos dispersos, mejorar la calidad informacional y habilitar decisiones basadas en evidencia en todos los niveles de la organización.</span>
+        </div>
+        <div class="conc-point">
+          <div class="conc-bullet">2</div>
+          <span>Los beneficios se materializan en dos dimensiones complementarias: operacional (inventarios optimizados, eficiencia en procesos, automatización de reportes) y estratégica (personalización, análisis predictivo y ventaja competitiva diferenciada).</span>
+        </div>
+        <div class="conc-point">
+          <div class="conc-bullet">3</div>
+          <span>El uso ético del dato —privacidad, transparencia, equidad y cumplimiento legal— no es opcional: es una condición de sostenibilidad y de confianza del cliente, especialmente en operaciones multinacionales.</span>
+        </div>
+        <div class="conc-point">
+          <div class="conc-bullet">4</div>
+          <span>La analítica predictiva y la minería de datos son el núcleo de la diferenciación: permiten anticipar demanda, personalizar ofertas y detectar fraudes, convirtiendo el dato en el activo más valioso de RetailCorp (Curto, 2016; Davenport &amp; Ronanki, 2018).</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REFERENCIAS -->
+  <section>
+    <span class="section-label">Referencias bibliográficas</span>
+    <h2>Fuentes consultadas</h2>
+    <ul class="ref-list">
+      <li>Chen, H., Chiang, R., &amp; Storey, V. (2012). Business Intelligence and Analytics: From Big Data to Big Impact. <em>MIS Quarterly, 36</em>(4), 1165–1188.</li>
+      <li>Curto, J. (2016). <em>Organizaciones orientadas al dato: transformando las organizaciones hacia una cultura analítica.</em> Barcelona: l'UOC.</li>
+      <li>Davenport, T., &amp; Ronanki, R. (2018). Artificial Intelligence for the Real World. <em>Harvard Business Review, 96</em>(1), 108–116.</li>
+      <li>Inmon, W. (1996). <em>Building the Data Warehouse.</em> John Wiley &amp; Sons.</li>
+      <li>Mercado, J. (3 de marzo de 2023). Conoce las herramientas para el Business Intelligence.</li>
+      <li>Riggins, F., &amp; Wamba, S. (2015). Research Directions on the Adoption, Usage, and Impact of the Internet of Things through the Use of Big Data Analytics. <em>Proceedings of the 48th Hawaii International Conference on System Sciences</em> (págs. 1531–1540).</li>
+      <li>Schwab, K. (2016). <em>The Fourth Industrial Revolution.</em> Crown Business / World Economic Forum.</li>
+      <li>Sengupta, B., Baiyere, A., &amp; Baskerville, R. (2019). Open Data for Open Innovation. <em>Journal of Business Research, 97</em>, 82–97.</li>
+      <li>Sharda, R., Delen, D., &amp; Turban, E. (2020). <em>Business Intelligence and Analytics: Systems for Decision Support.</em> Pearson.</li>
+      <li>Best In BI. (2023, mar 8). Business intelligence: ¿Por qué lo necesito en mi empresa? [Video]. YouTube. https://www.youtube.com/watch?v=4epZkqNufn0</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  Inteligencia de Negocios para la Toma de Decisiones · Unidad 1 · Universidad Católica de Colombia · 2026
+</footer>
+
+</body>
+</html>
